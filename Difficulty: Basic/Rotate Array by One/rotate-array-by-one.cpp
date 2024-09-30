@@ -12,6 +12,7 @@ class Solution {
   public:
     void rotate(vector<int> &arr) {
         // code here
+      //rotate array by one
         int n=arr.size();
         
         int last=arr[n-1];
