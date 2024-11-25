@@ -8,13 +8,12 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int tc = Integer.parseInt(br.readLine());
         while (tc-- > 0) {
-            int n = Integer.parseInt(br.readLine());
-            int[] arr = new int[n];
             String[] inputLine = br.readLine().split(" ");
+            int n = inputLine.length;
+            int[] arr = new int[n];
             for (int i = 0; i < n; i++) {
                 arr[i] = Integer.parseInt(inputLine[i]);
             }
-
             System.out.println(new Solution().maxProduct(arr));
         }
     }
@@ -25,22 +24,31 @@ public class Main {
 
 class Solution {
     // Function to find maximum product subarray
-    long maxProduct(int[] arr) {
+    int maxProduct(int[] arr) {
         // code here
-
-        long maxi=arr[0];
-        long currMax= arr[0];
-        long currMin= arr[0];
-        for(int i=1; i<arr.length; i++){
-            if(arr[i]<0){
-                long temp= currMax;
-                currMax= currMin;
-                currMin= temp;
-            }
-            currMax= Math.max(arr[i], currMax*arr[i]);
-            currMin= Math.min(arr[i], currMin*arr[i]);
-            maxi=Math.max(maxi,currMax);
+        if(arr==null || arr.length==0){
+            return 0;
         }
-        return maxi;
+        
+        int max = arr[0];
+        int min = arr[0];
+        int maxProduct = arr[0];
+        
+        for(int i=1; i<arr.length; i++){
+            int num = arr[i];
+            
+            if(num < 0){
+                int temp = max;
+                max = min;
+                min = temp;
+            }
+            
+            max = Math.max(num, max*num);
+            min = Math.min(num, min*num);
+            
+            maxProduct = Math.max(maxProduct, max);
+        }
+        
+        return maxProduct;
     }
 }
