@@ -46,9 +46,9 @@ class Solution {
                 end = Math.max(end, arr[j][1]);
                 j++;
             }
-            ans.add(new int[]{arr[i][0], end});
+            answ.add(new int[]{arr[i][0], end});
             i = j;
         }
-        return ans;
+        return answ;
     }
 }
