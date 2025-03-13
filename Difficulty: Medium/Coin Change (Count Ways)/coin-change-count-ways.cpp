@@ -2,40 +2,54 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+
 class Solution {
   public:
-    long long int count(int coins[], int N, int sum) {
-
+    int count(vector<int>& coins, int sum) {
         // code here.
-        vector<long long int>dp(sum+1,0);
+         int n=coins.size();
+        vector<int> dp(sum+1, 0);
         dp[0]=1;
-        for(int i=1; i<N+1; i++){
-            for(int j=1; j<sum+1; j++){
-                if(j-coins[i-1]>=0){
-                    dp[j]+=dp[j-coins[i-1]];
-                }
+        
+        for(int i=0;i<n;i++){
+            int x=coins[i];
+            
+            for(int j=x;j<=sum;j++){
+                dp[j]+=dp[j-x];
             }
         }
         return dp[sum];
     }
 };
 
+
 //{ Driver Code Starts.
+
 int main() {
+
     int t;
     cin >> t;
+    cin.ignore();
     while (t--) {
-        int sum, N;
-        cin >> sum >> N;
-        int coins[N];
-        for (int i = 0; i < N; i++) cin >> coins[i];
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        int sum;
+        cin >> sum;
+        cin.ignore();
         Solution ob;
-        cout << ob.count(coins, N, sum) << endl;
+        cout << ob.count(arr, sum) << endl;
+        cout << "~" << endl;
     }
 
     return 0;
 }
-
 
 // } Driver Code Ends
