@@ -1,37 +1,21 @@
-
 class Solution:
     def decodedString(self, s):
         # code here
-        stack=[]
-        for item in s:
-            if item=="]":
-                curr=""
-                while stack and stack[-1]!="[":
-                    curr=stack.pop()+curr
+        stack = []
+        for i in s:
+            if i == ']':
+                expand = ''
+                while stack[-1] != '[':
+                    expand = stack.pop() + expand
                 stack.pop()
-                val=""
-                while stack and stack[-1].isnumeric():
-                    val=stack.pop()+val
-                stack.append(curr*int(val))
-            else:
-                stack.append(item)
-        ans=""
-        while stack:
-            ans=stack.pop()+ans
-        return ans
 
-
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-
-if __name__ == '__main__':
-    t = int(input())
-    for _ in range(t):
-        s = input()
-
-        ob = Solution()
-        print(ob.decodedString(s))
-        print("~")
-
-# } Driver Code Ends
+                mul = ''
+                while stack and stack[-1].isdigit():
+                    mul = stack.pop() + mul
+                
+                stack.append(int(mul) * expand)
+                continue
+            
+            stack.append(i)
+            
+        return ''.join(stack)
