@@ -1,43 +1,16 @@
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
 from typing import List
+import heapq
 
-
-# } Driver Code Ends
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        # Your code here
-        res=[]
-        for x,y in points:
-            temp=x*x+y*y
-            temp**=0.5
-            res.append([[x,y],temp])
-        ans=sorted(res,key=lambda i:i[1])[:k]
-        ans=[i[0] for i in ans]
-        return ans
-        
-        
+        heap = []
+        for point in points:
+            x, y = point[0], point[1]
+            dis = (x - 0) ** 2 + (y - 0) ** 2  
+            heapq.heappush(heap, (dis, point))  
+        res = []
+        for _ in range(k):
+            if heap:
+                res.append(heapq.heappop(heap)[1]) 
+        return res
 
-#{ 
- # Driver Code Starts.
-
-if __name__ == "__main__":
-    t = int(input())
-    while t > 0:
-        t -= 1
-        k = int(input())
-        n = int(input())
-        points = []
-        for _ in range(n):
-            x, y = map(int, input().split())
-            points.append([x, y])
-        
-        solution = Solution()
-        ans = solution.kClosest(points, k)
-        ans.sort()
-        for point in ans:
-            print(point[0], point[1])
-        print("~")
-
-# } Driver Code Ends
